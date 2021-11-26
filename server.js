@@ -37,9 +37,11 @@ var listener = app.listen(process.env.PORT || 3000, function () {
 app.get("/api/whoami", (req, res) => {
   let ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress
 
-  if (ip.substr(0, 7) == "::ffff:") {
-    ip = ip.substr(7)
-  }
+  ip = ip.split(":").slice(-1)
+
+  // if (ip.substr(0, 7) == "::ffff:") {
+  //   ip = ip.substr(7)
+  // }
   
   res.json({
     ipaddress: ip,
